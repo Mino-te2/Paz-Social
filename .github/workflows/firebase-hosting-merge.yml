@@ -25,10 +25,3 @@
               firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PAZ_SOCIAL_F23EF }}' # Nome do segredo do Firebase Service Account
               projectId: paz-social-f23ef # ID do seu projeto Firebase
               channelId: live # Esta linha faz o deploy para o seu site de produção (o site que todos veem)
-            env:
-              # Se a sua aplicação React/Vite precisar de variáveis secretas durante a construção (npm run build),
-              # elas devem ser adicionadas aqui e como Segredos no GitHub.
-              # Exemplo: VITE_MINHA_CHAVE_API: ${{ secrets.VITE_MINHA_CHAVE_API }}
-              # Para as variáveis do Firebase (__firebase_config, etc.), o Canvas as injeta em tempo real no navegador,
-              # então geralmente não são necessárias aqui.
-    
