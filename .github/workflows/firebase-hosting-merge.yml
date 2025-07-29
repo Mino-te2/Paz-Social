@@ -1,0 +1,34 @@
+    # Este ficheiro foi gerado automaticamente pelo Firebase CLI
+    # Para mais detalhes, veja https://firebase.google.com/docs/hosting/github-integration
+    name: Deploy para Firebase Hosting ao fazer merge
+
+    on:
+      push:
+        branches:
+          - main # O branch que vai acionar o deploy (geralmente 'main')
+
+    jobs:
+      build_and_deploy:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4 # Pega o seu código do GitHub
+          - name: Configurar Node.js
+            uses: actions/setup-node@v4
+            with:
+              node-version: '20' # Versão do Node.js definida para 20
+              cache: 'npm' # Guarda as dependências para deploys mais rápidos
+          - run: npm ci # Instala as dependências do seu projeto
+          - run: npm run build # Constrói a sua aplicação (transforma o código React em ficheiros para o site)
+          - uses: FirebaseExtended/action-hosting-deploy@v0
+            with:
+              repoToken: '${{ secrets.GITHUB_TOKEN }}'
+              firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PAZ_SOCIAL_F23EF }}' # Nome do segredo do Firebase Service Account
+              projectId: paz-social-f23ef # ID do seu projeto Firebase
+              channelId: live # Esta linha faz o deploy para o seu site de produção (o site que todos veem)
+            env:
+              # Se a sua aplicação React/Vite precisar de variáveis secretas durante a construção (npm run build),
+              # elas devem ser adicionadas aqui e como Segredos no GitHub.
+              # Exemplo: VITE_MINHA_CHAVE_API: ${{ secrets.VITE_MINHA_CHAVE_API }}
+              # Para as variáveis do Firebase (__firebase_config, etc.), o Canvas as injeta em tempo real no navegador,
+              # então geralmente não são necessárias aqui.
+    
